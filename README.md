@@ -25,7 +25,7 @@
 </ul>
 
 <h2>Tablas Postgresql:</h2>
-<p>
+<pre>
 CREATE TABLE public."user"
 (
     id_user integer NOT NULL DEFAULT nextval('user_id_user_seq'::regclass),
@@ -48,5 +48,5 @@ CREATE TABLE public.subject
     status boolean,
     CONSTRAINT subject_pkey PRIMARY KEY (id_subject)
 )
-</p>
+</pre>
 
