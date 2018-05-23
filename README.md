@@ -24,27 +24,31 @@
     <li>Driver postgresql de php</li>
 </ul>
 
-<h2>Base de datos:</h2>
-<p>
-        -- Table: public."user"
+<h2>Tablas Postgresql:</h2>
+<pre>
+CREATE TABLE public."user"
+(
+    id_user SERIAL NOT NULL PRIMARY KEY,
+    name character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    email character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    password character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    profile integer NOT NULL
+);
 
-        -- DROP TABLE public."user";
-        
-        CREATE TABLE public."user"
-        (
-            "IdUser" integer NOT NULL DEFAULT nextval('"user_IdUser_seq"'::regclass),
-            "Name" character varying(50) COLLATE pg_catalog."default" NOT NULL,
-            "Email" character varying(50) COLLATE pg_catalog."default" NOT NULL,
-            "Password" character varying(50) COLLATE pg_catalog."default" NOT NULL,
-            "Profile" integer NOT NULL,
-            CONSTRAINT user_pkey PRIMARY KEY ("IdUser")
-        )
-        WITH (
-            OIDS = FALSE
-        )
-        TABLESPACE pg_default;
-        
-        ALTER TABLE public."user"
-            OWNER to postgres;
-</p>
+CREATE TABLE public.subject
+(
+    id_subject SERIAL NOT NULL PRIMARY KEY,
+    name character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    reticle character varying(50) COLLATE pg_catalog."default",
+    teacher_name character varying(50) COLLATE pg_catalog."default",
+    hour_start time without time zone,
+    hour_end time without time zone,
+    max_students integer,
+    status boolean
+);
+
+INSERT INTO public."user"(
+	name, email, password, profile)
+	VALUES ('Profesor Gasca', 'profe@gasca.com', '81dc9bdb52d04dc20036dbd8313ed055', 1);
+</pre>
 

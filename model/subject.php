@@ -1,13 +1,17 @@
 <?php
-class user
+class subject
 {
 	private $pdo;
     
-    public $id;
+    public $id_subject;
     public $name;
-    public $email;
-	public $password;
-	public $profile;
+    public $reticle;
+	public $teacher_name;
+	public $hour_start;
+    public $hour_end;
+    public $max_students;
+    public $status;
+    
 
 	public function __CONSTRUCT()
 	{
@@ -27,7 +31,7 @@ class user
 		{
 			$result = array();
 
-			$stm = $this->pdo->prepare('SELECT * FROM "user"');
+			$stm = $this->pdo->prepare('SELECT * FROM "subject"');
 			$stm->execute();
 
 			return $stm->fetchAll(PDO::FETCH_OBJ);
@@ -43,17 +47,19 @@ class user
 		
 		try 
 		{
-			$sql = 'INSERT INTO "user" ("name","email","password","profile") 
-					VALUES (?, ?, ?, ?)';
+			$sql = 'INSERT INTO "subject" ("name","reticle","teacher_name","hour_start","hour_end","max_students","status") 
+					VALUES (?, ?, ?, ?, ?, ?, ?)';
 
 			$this->pdo->prepare($sql)
 				->execute(
 					array(
 						$data->name,
-						$data->email,
-						md5($data->password),
-						$data->profile
-					
+						$data->reticle,
+						$data->teacher_name,
+						$data->hour_start,
+						$data->hour_end,
+                        $data->max_students,
+						$data->status
 					)
 				);
 			return $this->pdo->lastInsertId();

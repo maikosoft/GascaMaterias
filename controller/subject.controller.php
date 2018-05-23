@@ -1,7 +1,7 @@
 <?php
-require_once 'model/user.php';
+require_once 'model/subject.php';
 
-class UserController{
+class SubjectController{
     
     private $model;
     
@@ -10,16 +10,15 @@ class UserController{
             header('Location: index.php?sec=auth&action=index');
             exit();
         }
-        $this->model = new user();
+        $this->model = new subject();
     }
     
     public function Index(){
-        //$users = new user();
         
-        $users = $this->model->GetAll();
+        $subjects = $this->model->GetAll();
         
         require_once 'view/template/header.php';
-        require_once 'view/user/index.php';
+        require_once 'view/subject/index.php';
         require_once 'view/template/footer.php';
        
     }

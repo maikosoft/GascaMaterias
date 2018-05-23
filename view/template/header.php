@@ -27,17 +27,20 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <?php if (isset($_SESSION['username'])): ?>
+        <?php if (isset($_SESSION['email'])): ?>
           
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="?sec=users">Usuarios</a>
+            <li class="nav-item">
+              <a class="nav-link" href="?sec=user">Usuarios</a>
+            </li>
+            <li>
+              <a class="nav-link" href="?sec=subject">Materias</a>
             </li>
           </ul>
           <ul class="navbar-nav pull-right">
             <li class="nav-item ">
-              <a class="nav-link" href="?sec=logout"><?php echo $_SESSION['username'] ?> - Salir</a>
+              <a class="nav-link" href="?sec=auth&action=logout"><?php echo $_SESSION['email'] ?> - Salir</a>
             </li>
           </ul>
         </div>

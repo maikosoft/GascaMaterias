@@ -5,8 +5,6 @@
 </div>
 <?php
     include_once("view/template/messages.php");
-?>
-<?php
     include_once("view/user/menu.php");
 ?>
 <div class="row">
@@ -23,12 +21,11 @@
             <tbody>
                 <?php foreach($users as $key => $user) { ?>
                     <tr>
-                        <td><?php echo $user->Name; ?></td>
-                        <td><?php echo $user->Email; ?></td>
-                        <td><?php echo $user->Profile == 1 ? "Maestro" : "Alumno"; ?></td>
+                        <td><?php echo $user->name; ?></td>
+                        <td><?php echo $user->email; ?></td>
+                        <td><?php echo $user->profile == 1 ? "Maestro" : "Alumno"; ?></td>
                         <td>
-                            <a href="index.php?sec=user&action=edit&id=<?php echo $user->IdUser ?>" class="btn btn-sm btn-primary">Editar</a>
-                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-modal">Eliminar</button>
+                            <button type="button" id="delete" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-modal" data-id="<?php echo $user->id_user; ?>">Eliminar</button>
                         </td>
                     </tr>
                 <?php } ?>
@@ -51,9 +48,21 @@
         <p>¿Realmente desea eliminar éste usuario?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">No, Cerrar</button>
-        <button type="button" class="btn btn-danger">Si, Eliminar</button>
+        <form action="?sec=user&action=delete" method="post">
+            <input id="id_user" name="id_user"   type="hidden" value="">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">No, Cerrar</button>
+            <button type="submit" class="btn btn-danger btn-ok">Si, Eliminar</button>
+        </form>
       </div>
     </div>
   </div>
 </div>
+<script>
+$(document).ready(function(){
+    $('#delete-modal').on('show.bs.modal', function(e) {
+        var id = $(e.relatedTarget).data('id');
+        console.log(id);
+        $(this).find('#id_user').attr('value', id);
+    });
+});
+</script>
