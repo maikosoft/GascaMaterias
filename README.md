@@ -24,3 +24,27 @@
     <li>Driver postgresql de php</li>
 </ul>
 
+<h2>Base de datos:</h2>
+<p>
+        -- Table: public."user"
+
+        -- DROP TABLE public."user";
+        
+        CREATE TABLE public."user"
+        (
+            "IdUser" integer NOT NULL DEFAULT nextval('"user_IdUser_seq"'::regclass),
+            "Name" character varying(50) COLLATE pg_catalog."default" NOT NULL,
+            "Email" character varying(50) COLLATE pg_catalog."default" NOT NULL,
+            "Password" character varying(50) COLLATE pg_catalog."default" NOT NULL,
+            "Profile" integer NOT NULL,
+            CONSTRAINT user_pkey PRIMARY KEY ("IdUser")
+        )
+        WITH (
+            OIDS = FALSE
+        )
+        TABLESPACE pg_default;
+        
+        ALTER TABLE public."user"
+            OWNER to postgres;
+</p>
+
