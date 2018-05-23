@@ -3,7 +3,7 @@
 session_start();
 require_once 'model/database.php';
  
-$default_controller = 'user';
+$default_controller = 'auth';
  
 // cargamo el controlador default
 if(!isset($_GET['sec']))
