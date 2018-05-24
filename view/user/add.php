@@ -30,6 +30,8 @@
 				<label>Tipo de Usuario</label><br>
 				
 				<div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="profile" value="1">
+				  	<label class="form-check-label" >Maestro</label>
 					<input class="form-check-input" type="radio" name="profile" value="2" checked>
 				  	<label class="form-check-label" >Alumno</label>
 				 </div>

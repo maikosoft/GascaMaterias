@@ -23,9 +23,16 @@
                     <tr>
                         <td><?php echo $user->name; ?></td>
                         <td><?php echo $user->email; ?></td>
-                        <td><?php echo $user->profile == 1 ? "Maestro" : "Alumno"; ?></td>
                         <td>
-                            <button type="button" id="delete" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-modal" data-id="<?php echo $user->id_user; ?>">Eliminar</button>
+                            <?php 
+                            if($user->profile == 0){ echo "Admin"; }
+                            else if($user->profile == 1){ echo "Maestro"; }
+                            else { echo "Alumno"; }
+                            ?>
+                        <td>
+                            <?php if($user->profile != 0) { ?>
+                                <button type="button" id="delete" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-modal" data-id="<?php echo $user->id_user; ?>">Eliminar</button>
+                            <?php } ?>
                         </td>
                     </tr>
                 <?php } ?>
@@ -61,7 +68,6 @@
 $(document).ready(function(){
     $('#delete-modal').on('show.bs.modal', function(e) {
         var id = $(e.relatedTarget).data('id');
-        console.log(id);
         $(this).find('#id_user').attr('value', id);
     });
 });

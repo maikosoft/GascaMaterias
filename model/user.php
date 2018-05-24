@@ -3,7 +3,7 @@ class user
 {
 	private $pdo;
     
-    public $id;
+    public $id_user;
     public $name;
     public $email;
 	public $password;
@@ -25,7 +25,6 @@ class user
 	{
 		try
 		{
-			$result = array();
 
 			$stm = $this->pdo->prepare('SELECT * FROM "user"');
 			$stm->execute();

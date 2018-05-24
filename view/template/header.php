@@ -31,16 +31,24 @@
           
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
           <ul class="navbar-nav mr-auto">
+          
+          <?php if ($_SESSION['profile'] == 1 || $_SESSION['profile'] == 0): ?>
             <li class="nav-item">
               <a class="nav-link" href="?sec=user">Usuarios</a>
             </li>
             <li>
               <a class="nav-link" href="?sec=subject">Materias</a>
             </li>
+          <?php endif ?>
+          <?php if ($_SESSION['profile'] == 2): ?>
+            <li class="nav-item">
+              <a class="nav-link" href="?sec=user">Mis Materias</a>
+            </li>
+          <?php endif ?>
           </ul>
           <ul class="navbar-nav pull-right">
             <li class="nav-item ">
-              <a class="nav-link" href="?sec=auth&action=logout"><?php echo $_SESSION['email'] ?> - Salir</a>
+              <a class="nav-link" href="?sec=auth&action=logout"><?php echo $_SESSION['id_user'] . ' - ' .$_SESSION['email'] ?> - Salir</a>
             </li>
           </ul>
         </div>

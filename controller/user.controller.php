@@ -6,8 +6,14 @@ class UserController{
     private $model;
     
     public function __CONSTRUCT(){
+        // validar usuario logueado
         if(!isset($_SESSION['email'])) {
+            $_SESSION['error'] = "Es necesario loguearte.";
             header('Location: index.php?sec=auth&action=index');
+            exit();
+        // Validar perfil correcto. 0: admin, 1:maestro 2:Alumno
+        } else if($_SESSION['profile'] != 0 or $_SESSION['profile'] != 1) {
+            header('Location: index.php?sec=student&action=index');
             exit();
         }
         $this->model = new user();

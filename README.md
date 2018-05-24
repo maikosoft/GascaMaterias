@@ -47,8 +47,15 @@ CREATE TABLE public.subject
     status boolean
 );
 
+CREATE TABLE public."subject_user"
+(
+    id_subject_user serial NOT NULL PRIMARY KEY,
+    id_subject integer NOT NULL,
+	id_user integer NOT NULL
+)
+
 INSERT INTO public."user"(
 	name, email, password, profile)
-	VALUES ('Profesor Gasca', 'profe@gasca.com', '81dc9bdb52d04dc20036dbd8313ed055', 1);
+	VALUES ('Profesor Gasca', 'profe@gasca.com', '81dc9bdb52d04dc20036dbd8313ed055', 0);
 </pre>
 

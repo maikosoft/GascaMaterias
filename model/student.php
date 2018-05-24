@@ -1,17 +1,7 @@
 <?php
-class subject
+class student
 {
 	private $pdo;
-    
-    public $id_subject;
-    public $name;
-    public $reticle;
-	public $teacher_name;
-	public $hour_start;
-    public $hour_end;
-    public $max_students;
-    public $status;
-    
 
 	public function __CONSTRUCT()
 	{
@@ -26,13 +16,13 @@ class subject
 	}
 
 	// Obtiene todos los registros de materias
-	public function GetAll()
+	public function GetStudentSubjects()
 	{
+		$id_user = $_SESSION['id_user'];
 		try
 		{
-
-			$stm = $this->pdo->prepare('SELECT * FROM "subject"');
-			$stm->execute();
+			$stm = $this->pdo->prepare('SELECT * FROM "subject_user" WHERE id_user= ?');
+			$stm->execute(array($id_user));
 
 			return $stm->fetchAll(PDO::FETCH_OBJ);
 		}

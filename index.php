@@ -2,7 +2,7 @@
 // iniciamos sesion
 session_start();
 require_once 'model/database.php';
- 
+
 $default_controller = 'auth';
  
 // cargamo el controlador default

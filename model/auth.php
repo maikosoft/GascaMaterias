@@ -3,7 +3,7 @@ class auth
 {
 	private $pdo;
     
-    public $id;
+    public $id_user;
     public $name;
     public $email;
 	public $password;
@@ -27,7 +27,7 @@ class auth
 		try 
 		{
             $pass_md5 = md5($password);
-			$stm = $this->pdo->prepare('SELECT email, password FROM "user" WHERE email = ? AND password = ?');
+			$stm = $this->pdo->prepare('SELECT id_user, email, password, profile FROM "user" WHERE email = ? AND password = ?');
 			          
 			$stm->execute(array($email, $pass_md5));
 			return $stm->fetch(PDO::FETCH_OBJ);

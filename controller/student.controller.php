@@ -1,9 +1,11 @@
 <?php
+require_once 'model/student.php';
 require_once 'model/subject.php';
 
-class SubjectController{
+class StudentController{
     
-    private $model;
+    private $subject_model;
+    private $student_model;
     
     public function __CONSTRUCT(){
         // validar usuario logueado
@@ -12,18 +14,21 @@ class SubjectController{
             header('Location: index.php?sec=auth&action=index');
             exit();
         // Validar perfil correcto. 0: admin, 1:maestro 2:Alumno
-        } else if($_SESSION['profile'] != 0 or $_SESSION['profile'] != 1) {
-            header('Location: index.php?sec=student&action=index');
+        } else if($_SESSION['profile'] != 2) {
+            header('Location: index.php?sec=user&action=index');
             exit();
         }
-        $this->model = new subject();
+        $this->subject_model = new subject();
+        $this->student_model = new student();
     }
     
     // Lista todos los registros de materias
     public function Index(){
-        $subjects = $this->model->GetAll();
+        $subjects = $this->subject_model->GetAll();
+        $student_subjects = $this->student_model->GetStudentSubjects();
+
         require_once 'view/template/header.php';
-        require_once 'view/subject/index.php';
+        require_once 'view/student/index.php';
         require_once 'view/template/footer.php';
     }
     
