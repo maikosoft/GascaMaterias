@@ -4,18 +4,20 @@
 
 <h2>Funciones:</h2>
 <ul>
-    <li>Login de usuarios con perfil "Alumno" y "Maestro"</li>
-    <li>Maestro
+    <li>Login de usuarios con perfil "Alumno(2)", "Maestro(1)", "Admin(0)"</li>
+    <li>Perfil Maestro y Admin
         <ul>
             <li>CRUD de usuarios</li>
             <li>CRUD de Materias</li>
         </ul>
     </li>
-    <li>Postgresql server</li>
-    <li>Driver postgresql de php</li>
+    <li>Perfil Alumno
+        <ul>
+            <li>Escritorio para seleccion de materias y ver materias seleccionadas</li>
+        </ul>
+    </li>
 </ul>
 
-<p>La aplicacion </p>
 <h2>Requerimientos del servidor:</h2>
 <ul>
     <li>Apache o NGINX Server</li>
@@ -24,7 +26,10 @@
     <li>Driver postgresql de php</li>
 </ul>
 
-<h2>Tablas Postgresql:</h2>
+<h2>Nota:</h2>
+<p>Favor de agregar las tablas y el registro de perfil Admin a "user" para poder accesar.</p>
+
+<h2>Tablas y Datos para Postgresql:</h2>
 <pre>
 CREATE TABLE public."user"
 (
