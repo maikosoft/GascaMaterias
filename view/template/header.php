@@ -48,7 +48,7 @@
           </ul>
           <ul class="navbar-nav pull-right">
             <li class="nav-item ">
-              <a class="nav-link" href="?sec=auth&action=logout"><?php echo $_SESSION['id_user'] . ' - ' .$_SESSION['email'] ?> - Salir</a>
+              <a class="nav-link" href="?sec=auth&action=logout"><?php echo $_SESSION['email'] ?> - Salir</a>
             </li>
           </ul>
         </div>

@@ -40,3 +40,9 @@ code {
 .error {
   color: red;
 }
+
+/* Custom height para tabla */
+.table-custom-heigth {
+  height: 500px;
+  overflow: auto;
+}

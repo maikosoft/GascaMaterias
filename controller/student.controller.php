@@ -24,7 +24,7 @@ class StudentController{
     
     // Lista todos los registros de materias
     public function Index(){
-        $subjects = $this->subject_model->GetAll();
+        $subjects = $this->subject_model->GetAll($active = true);
         $student_subjects = $this->student_model->GetStudentSubjects();
 
         require_once 'view/template/header.php';

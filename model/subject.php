@@ -26,12 +26,16 @@ class subject
 	}
 
 	// Obtiene todos los registros de materias
-	public function GetAll()
+	// active = true = solo las materias activas
+	public function GetAll($active = false)
 	{
 		try
 		{
-
-			$stm = $this->pdo->prepare('SELECT * FROM "subject"');
+			if($active === false) {
+				$stm = $this->pdo->prepare('SELECT * FROM "subject" ORDER BY hour_start');
+			} else if($active === true){
+				$stm = $this->pdo->prepare('SELECT * FROM "subject" WHERE status=true ORDER BY hour_start');				
+			}
 			$stm->execute();
 
 			return $stm->fetchAll(PDO::FETCH_OBJ);

@@ -12,7 +12,7 @@ class UserController{
             header('Location: index.php?sec=auth&action=index');
             exit();
         // Validar perfil correcto. 0: admin, 1:maestro 2:Alumno
-        } else if($_SESSION['profile'] != 0 or $_SESSION['profile'] != 1) {
+        } else if($_SESSION['profile'] != 0 and $_SESSION['profile'] != 1) {
             header('Location: index.php?sec=student&action=index');
             exit();
         }

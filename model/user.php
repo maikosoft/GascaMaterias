@@ -26,7 +26,7 @@ class user
 		try
 		{
 
-			$stm = $this->pdo->prepare('SELECT * FROM "user"');
+			$stm = $this->pdo->prepare('SELECT * FROM "user" ORDER BY profile');
 			$stm->execute();
 
 			return $stm->fetchAll(PDO::FETCH_OBJ);

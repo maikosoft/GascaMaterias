@@ -20,7 +20,7 @@
 			</div>
 			<div class="form-group">
 				<label for="teacher_name">Nombre del Maestro</label>
-				<input type="text" name="teacher_name" id="teacher_name" class="form-control" placeholder="Nombre del Maaestro">
+				<input type="text" name="teacher_name" id="teacher_name" class="form-control" placeholder="Nombre del Maestro">
 			</div>
 			<div class="form-group">
 				<label>Horario</label>

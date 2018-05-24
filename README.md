@@ -52,7 +52,7 @@ CREATE TABLE public."subject_user"
     id_subject_user serial NOT NULL PRIMARY KEY,
     id_subject integer NOT NULL,
 	id_user integer NOT NULL
-)
+);
 
 INSERT INTO public."user"(
 	name, email, password, profile)
