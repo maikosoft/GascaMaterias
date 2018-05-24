@@ -27,7 +27,7 @@
 				<input type="password" name="password_conf" id="password_conf" class="form-control" value="<?php echo $_POST ? $_POST['password_conf'] : ""?>" placeholder="Contraseña">
 			</div>
             <div class="form-group">
-				<label>Tipo de Usuario</label><br>
+				<label>Perfil de Usuario</label><br>
 				
 				<div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="profile" value="1">
@@ -44,13 +44,14 @@
 	</div>
 </div>
 <script type="text/javascript">
+    // Validar formularios
 	$("#UserAddForm").validate({
         rules: {
             name: "required",
             email: {
                 required: true,
                 email: true,
-                remote: {
+                remote: { // Valida si existe email ya registrado
                     url: "index.php?sec=user&action=CheckExistEmail",
                     type: "post",
                     data: {
@@ -66,7 +67,7 @@
                 equalTo: "#password"
             }
         },
-        messages: {
+        messages: { // Mensajes de error
             name: "Nombre es requerido",
             email: {
                 required: "Email es requerido",

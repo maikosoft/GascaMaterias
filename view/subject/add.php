@@ -5,7 +5,7 @@
 </div>
 <?php
     include_once("view/template/messages.php");
-    include_once("view/user/menu.php");
+    include_once("view/subject/menu.php");
 ?>
 <div class="row">
 	<div class="col">
@@ -55,6 +55,7 @@
 	</div>
 </div>
 <script type="text/javascript">
+    // Valida form con jquery validator
 	$("#SubjectAddForm").validate({
         rules: {
             name: "required",

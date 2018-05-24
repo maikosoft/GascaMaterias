@@ -64,7 +64,7 @@
       </div>
       <div class="modal-footer">
         <form action="?sec=subject&action=delete" method="post">
-            <input id="id_subjejct" name="id_subject"  type="hidden" value="">
+            <input id="id_subject" name="id_subject"  type="hidden" value="">
             <button type="button" class="btn btn-primary" data-dismiss="modal">No, Cerrar</button>
             <button type="submit" class="btn btn-danger btn-ok">Si, Eliminar</button>
         </form>
@@ -75,7 +75,9 @@
 <script>
 $(document).ready(function(){
     $('#delete-modal').on('show.bs.modal', function(e) {
+        // Obtenemos el id del boton
         var id = $(e.relatedTarget).data('id');
+        //lo asignamos al input del form en el modal
         $(this).find('#id_subject').attr('value', id);
     });
 });

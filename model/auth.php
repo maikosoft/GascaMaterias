@@ -21,12 +21,12 @@ class auth
 		}
 	}
 
+	// Verifica Email y password para iniciar sesion
 	public function CheckEmailPassword($email, $password)
 	{
-		
 		try 
 		{
-            $pass_md5 = md5($password);
+            $pass_md5 = md5($password); // md5 solo para test
 			$stm = $this->pdo->prepare('SELECT id_user, email, password, profile FROM "user" WHERE email = ? AND password = ?');
 			          
 			$stm->execute(array($email, $pass_md5));

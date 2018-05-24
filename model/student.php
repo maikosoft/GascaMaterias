@@ -21,7 +21,9 @@ class student
 		$id_user = $_SESSION['id_user'];
 		try
 		{
-			$stm = $this->pdo->prepare('SELECT * FROM "subject_user" WHERE id_user= ?');
+			$stm = $this->pdo->prepare('SELECT "subject".*, "subject_user".* FROM "subject_user" 
+			LEFT JOIN "subject" ON "subject".id_subject = "subject_user".id_subject
+			WHERE "subject_user".id_user = ?');
 			$stm->execute(array($id_user));
 
 			return $stm->fetchAll(PDO::FETCH_OBJ);
@@ -34,27 +36,19 @@ class student
 
 	// Agrega registro de materia
 	// $data object = Objecto de subject
-	public function Add(subject $data)
+	public function AddStudentSubjects($id_subject)
 	{
 		
 		try 
 		{
-			$sql = 'INSERT INTO "subject" ("name","reticle","teacher_name","hour_start","hour_end","max_students","status") 
-					VALUES (?, ?, ?, ?, ?, ?, ?)';
+			$sql = 'INSERT INTO "subject_user" ("id_user","id_subject") 
+					VALUES (?, ?)';
 
 			$this->pdo->prepare($sql)
 				->execute(
-					array(
-						$data->name,
-						$data->reticle,
-						$data->teacher_name,
-						$data->hour_start,
-						$data->hour_end,
-                        $data->max_students,
-						$data->status
-					)
+					array($_SESSION['id_user'], $id_subject)
 				);
-			return $this->pdo->lastInsertId();
+			//return $this->pdo->lastInsertId();
 		} catch (Exception $e) 
 		{
 			die($e->getMessage());

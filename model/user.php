@@ -21,6 +21,7 @@ class user
 		}
 	}
 
+	// Obtiene todos los registros de usuarios
 	public function GetAll()
 	{
 		try
@@ -37,9 +38,9 @@ class user
 		}
 	}
 
+	// Agrega nuevo registro de usuario
 	public function Add(user $data)
 	{
-		
 		try 
 		{
 			$sql = 'INSERT INTO "user" ("name","email","password","profile") 
@@ -50,7 +51,7 @@ class user
 					array(
 						$data->name,
 						$data->email,
-						md5($data->password),
+						md5($data->password), //md5 para test
 						$data->profile
 					
 					)
@@ -62,14 +63,13 @@ class user
 		}
 	}
 
+	// Verifica si email existe
 	public function CheckExistEmail($email)
 	{
 		
 		try 
 		{
 			$stm = $this->pdo->prepare('SELECT email FROM "user" WHERE email = ?');
-			          
-			//$stm->bindValue(':email', $email, PDO::PARAM_STR);
 			$stm->execute(array($email));
 			return $stm->fetch(PDO::FETCH_OBJ);
 		} catch (Exception $e) 
@@ -78,66 +78,16 @@ class user
 		}
 	}
 
+	// Elimina registro de usuario
 	public function Delete($id)
 	{
 		try 
 		{
 			$stm = $this->pdo->prepare('DELETE FROM "user" WHERE id_user = ?');			          
-
 			$stm->execute(array($id));
 		} catch (Exception $e) 
 		{
 			die($e->getMessage());
 		}
 	}
-
-	// public function Obtener($id)
-	// {
-	// 	try 
-	// 	{
-	// 		$stm = $this->pdo
-	// 		          ->prepare("SELECT * FROM cliente WHERE id = ?");
-			          
-
-	// 		$stm->execute(array($id));
-	// 		return $stm->fetch(PDO::FETCH_OBJ);
-	// 	} catch (Exception $e) 
-	// 	{
-	// 		die($e->getMessage());
-	// 	}
-	// }
-
-	
-
-	// public function Actualizar($data)
-	// {
-	// 	try 
-	// 	{
-	// 		$sql = "UPDATE cliente SET 
-	// 					dni      		= ?,
-	// 					Nombre          = ?, 
-	// 					Apellido        = ?,
-    //                     Correo        = ?,
-    //                     Telefono        = ?
-						
-	// 			    WHERE id = ?";
-
-	// 		$this->pdo->prepare($sql)
-	// 		     ->execute(
-	// 			    array(
-	// 			    	$data->dni, 
-    //                     $data->Nombre,                        
-    //                     $data->Apellido,
-    //                      $data->Correo,
-    //                     $data->telefono, 
-    //                     $data->id
-	// 				)
-	// 			);
-	// 	} catch (Exception $e) 
-	// 	{
-	// 		die($e->getMessage());
-	// 	}
-	// }
-
-	
 }

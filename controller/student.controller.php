@@ -33,54 +33,25 @@ class StudentController{
     }
     
     // Agrega nuevo registro de materia
-    public function Add(){
+    public function SaveSubjects(){
         if(!empty($_POST)){
-            $subject = new subject();
-            $subject->name = $_POST['name'];
-            $subject->reticle = $_POST['reticle'];
-            $subject->teacher_name = $_POST['teacher_name'];
-            $subject->hour_start = $_POST['hour_start'];
-            $subject->hour_end = $_POST['hour_end'];
-            $subject->max_students = $_POST['max_students'];
-            $subject->status = $_POST['status'];
-            $insert_id = $this->model->Add($subject);
-            // devuelve el Id insertado
-            if($insert_id > 0){
-                $_SESSION['success'] = "Se ha guardado la materia";
-                header('Location: index.php?sec=subject&action=index');
-                exit();
-            } else {
-                $_SESSION['error'] = "No se ha podido guardar. Contacte al administrador";
+            // obtenemos los ids dentro del input ej: "3,4,5,"
+            $id_subjects = $_POST['txt_selected_subjects'];
+            // separamos los id en array
+            $arr_ids = explode(",", $id_subjects);
+            // recorremos array para guardar en tabla de relacion
+            foreach($arr_ids as $id_subject) {
+                if($id_subject != '') {
+                    $this->student_model->AddStudentSubjects($id_subject);
+                }
             }
-        } else {
-            require_once 'view/template/header.php';
-            require_once 'view/subject/add.php';
-            require_once 'view/template/footer.php';
+            $_SESSION['success'] = "Se han guardado tus materias seleccionadas";
+            header('Location: index.php?sec=student&action=index');
+            exit();
+        } else { // redireccionamos a index
+            header('Location: index.php?sec=student&action=index');
+            exit();
         }
         
-    }
-
-    // Cambia el status de la materia
-    // params
-    // id_subject : id_subject de la materia
-    // value: 0: inactivo, 1: activo
-    public function ChangeStatus(){
-        $id_subject = $_GET['id_subject'];
-        $value  = $_GET['value'];
-        
-        $this->model->ChangeStatus($id_subject, $value);
-        $_SESSION['success'] = "Se ha cambiado el estado de la materia";
-        header('Location: index.php?sec=subject&action=index');
-        exit();
-    }
-
-    // Elimina registro de materias(subjects)
-    // params:
-    // id_subject: POST id_subject
-    public function Delete(){
-        $this->model->Delete($_POST['id_subject']);
-        $_SESSION['success'] = "Se ha eliminado la materia";
-        header('Location: index.php?sec=subject&action=index');
-        exit();
     }
 }

@@ -19,7 +19,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach($users as $key => $user) { ?>
+                <?php foreach($users as $key => $user): ?>
                     <tr>
                         <td><?php echo $user->name; ?></td>
                         <td><?php echo $user->email; ?></td>
@@ -30,12 +30,12 @@
                             else { echo "Alumno"; }
                             ?>
                         <td>
-                            <?php if($user->profile != 0) { ?>
+                            <?php if($user->profile != 0): ?>
                                 <button type="button" id="delete" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-modal" data-id="<?php echo $user->id_user; ?>">Eliminar</button>
-                            <?php } ?>
+                            <?php endif ?>
                         </td>
                     </tr>
-                <?php } ?>
+                <?php endforeach ?>
             </tbody>
         </table>
     </div>
@@ -67,7 +67,9 @@
 <script>
 $(document).ready(function(){
     $('#delete-modal').on('show.bs.modal', function(e) {
+        // Obtenemos id en el boton
         var id = $(e.relatedTarget).data('id');
+        // lo anexamos al form en el modal
         $(this).find('#id_user').attr('value', id);
     });
 });

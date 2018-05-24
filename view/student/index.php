@@ -49,7 +49,7 @@
         <?php } else { ?>
             <dic class="row">
                 <div class="col-lg-6">
-                    <h3>Materias disponibles</h3>
+                    <h3>Disponibles</h3>
                     <table class="table table-striped table-custom-heigth">
                         <thead>
                             <tr>
@@ -68,7 +68,7 @@
                                     <td><?php echo $subject->teacher_name; ?></td>
                                     <td><?php echo $subject->hour_start; ?> - <?php echo $subject->hour_end; ?></td>
                                     <td>
-                                        <button role="button" id="agregar" class="btn btn-primary btn-xs btn-agregar-subject-<?php echo $subject->id_subject; ?>" data-id_subject="<?php echo $subject->id_subject; ?>">Agregar</button>
+                                        <button role="button" id="agregar" class="btn btn-primary btn-xs btn-agregar-subject-<?php echo $subject->id_subject; ?>" data-id_subject="<?php echo $subject->id_subject; ?>" data-hour_start="<?php echo $subject->hour_start; ?>" data-hour_end="<?php echo $subject->hour_end; ?>" >Agregar</button>
                                     </td>
                                 </tr>
                             <?php endforeach ?>
@@ -76,7 +76,7 @@
                     </table>
                 </div>
                 <div class="col-lg-6">
-                    <h3>Materias seleccionadas</h3>
+                    <h3>Selección</h3>
                     <table class="table">
                         <thead>
                             <tr>
@@ -93,8 +93,8 @@
                     </table>
                 </div>
                 <div class="col-lg-12 text-right">
-                    <form action="index.php?sec=student?option=savesubjects"></form>
-                        <input type="hidden" id="txt_selected_subjects" value="">
+                    <form id="form_add_subjects" action="index.php?sec=student&action=SaveSubjects" method="post">
+                        <input type="hidden" id="txt_selected_subjects" name="txt_selected_subjects" value="">
                         <button id="btn_save" role="submit" class="btn btn-success disabled">Guardar materias</button>
                     </form>
                 </div>
@@ -106,35 +106,89 @@
 <script>
 $(document).ready(function(){
 
-    var ids_selected_subjects = '';
-    var hours = {};
+    var selected_subjects = [];
     $(document).on("click", '#agregar', function() {
         var id_subject = $(this).data('id_subject');      
-        //ids_selected_subjects = $("#txt_selected_subjects").val();
-        if (ids_selected_subjects.indexOf(id_subject) < 0) {
-            agregar_subject(id_subject);
+        var hour_start = $(this).data('hour_start');      
+        var hour_end = $(this).data('hour_end');
+        // Checamos si se empalman las horas
+        
+        if(check_hour_over(hour_start, hour_end)) {
+            if (!check_subject_selected(id_subject)) {
+                add_subject(id_subject, hour_start, hour_end);
+            }
+        } else {
+            alert("Horario se empalma con otra materia")
         }
+
     });
 
     $(document).on("click", '#eliminar', function() {
         var id_subject = $(this).data('id_subject');
-        eliminar_subject(id_subject);
+        delete_subject(id_subject);
+    });
+
+    $(document).on("click", '#btn_save', function(e) {
+        e.preventDefault();
+        add_id_subjects_to_input();
+        $("#form_add_subjects").submit();
     });
 
 
+    function check_hour_over(hour_start, hour_end){
+        var no_over = true;
+        selected_subjects.forEach( function(value) { 
+            if( (hour_start >= value.start && hour_start < value.end) || (hour_end >= value.start && hour_end < value.end) ) {
+                no_over = false;
+            }
+        });
+
+        return no_over;
+    }
+
+    function check_subject_selected(id_subject){
+        var selected = false;
+        selected_subjects.forEach( function(value) { 
+            if(id_subject == value.id) {
+                selected = false;
+            }
+        });
+
+        return selected;
+    }
+
+    function add_id_subjects_to_input(){
+        selected_subjects.forEach( function(value) { 
+            var input = $("#txt_selected_subjects").val();
+            $("#txt_selected_subjects").val(input + value.id + ",");
+        });
+    }
+
+
     function check_if_empty() {
-        if(ids_selected_subjects != ''){
+        if(selected_subjects != ''){
             $("#btn_save").removeClass('disabled');
         }
         else {
             $("#btn_save").addClass('disabled');
         }
-        console.log(ids_selected_subjects);
     }
 
-    function agregar_subject(id){
+    function delete_subject_from_array(id) {
+        console.log(selected_subjects);
+        selected_subjects.forEach( function(value, key) { 
+            if(id == value.id) {
+                selected_subjects.splice(key,1);
+            }
+        } );
+        console.log(selected_subjects);        
+    }
+
+    function add_subject(id, hour_start, hour_end){
         // Agregamos el id al string
-        ids_selected_subjects = ids_selected_subjects + id + ',';
+        //ids_selected_subjects = ids_selected_subjects + id + ',';
+        // Agregamos los horarios
+        selected_subjects.push({id: id, start: hour_start, end: hour_end});
         // guardamos el contenido del tr para pasarlo a la columna
         // de materias seleccionadas
         var html = $("#tr-subject-" + id).html();
@@ -154,9 +208,10 @@ $(document).ready(function(){
         check_if_empty();
     }
 
-    function eliminar_subject(id){
-        // quitamos el id del string de ids
-        ids_selected_subjects = ids_selected_subjects.replace(id+',', '');
+    function delete_subject(id){
+        // quitamos el objeto del array
+        delete_subject_from_array(id);
+        // lo quitamos 
         // Eliminamos el tr de la seleccion
         $("#tr-selected-subject-" + id).remove();
         // activamos el boton en materias
@@ -164,6 +219,8 @@ $(document).ready(function(){
         // checamos si string de ids esta vacio para desactivar boton
         check_if_empty();
     }
+
+    
 
     
 });

@@ -19,9 +19,8 @@ class UserController{
         $this->model = new user();
     }
     
+    // Lista de usuarios
     public function Index(){
-        //$users = new user();
-        
         $users = $this->model->GetAll();
         
         require_once 'view/template/header.php';
@@ -30,6 +29,7 @@ class UserController{
        
     }
     
+    // Agregar usuario
     public function Add(){
         if(!empty($_POST)){
             
@@ -39,7 +39,7 @@ class UserController{
             $user->email = $_POST['email'];
             $user->password = $_POST['password'];
             $user->profile = $_POST['profile'];
-        
+            // id insertado
             $InsertId = $this->model->Add($user);
             if($InsertId > 0){
                 $_SESSION['success'] = "Se ha guardado el usuario";
@@ -54,6 +54,7 @@ class UserController{
         
     }
 
+    // Verifica si Email ya existe
     public function CheckExistEmail()
     {
         $email = $_POST['email'];
@@ -67,6 +68,7 @@ class UserController{
         }
     }
     
+    // Ekliminamos usuario
     public function Delete(){
         $this->model->Delete($_POST['id_user']);
         $_SESSION['success'] = "Se ha eliminado el usuario";
